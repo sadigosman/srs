@@ -1,0 +1,19 @@
+{!! Form::open(array('route' => 'route.name', 'method' => 'POST')) !!}
+	<ul>
+		<li>
+			{!! Form::label('name', 'Name:') !!}
+			{!! Form::text('name') !!}
+		</li>
+		<li>
+			{!! Form::label('faculty', 'Faculty:') !!}
+			{!! Form::text('faculty') !!}
+		</li>
+		<li>
+			{!! Form::label('address', 'Address:') !!}
+			{!! Form::text('address') !!}
+		</li>
+		<li>
+			{!! Form::submit() !!}
+		</li>
+	</ul>
+{!! Form::close() !!}
