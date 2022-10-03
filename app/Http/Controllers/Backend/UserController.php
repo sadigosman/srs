@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function Show()
     {
-        $users= User::all();
-        dd('view user'); 
+        $data['users']= User::all();
+        return view('backend.user.show',$data); 
     }
 }
