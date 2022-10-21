@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Address;
+use App\Models\Depatrment;
+use App\Models\University;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -15,19 +18,19 @@ class Faculty extends Model
 
     protected $dates = ['deleted_at'];
 
-    public function Address()
+    public function address()
     {
-        return $this->hasOne('Models\Address', 'id');
+        return $this->hasOne(Address::class, 'id','address_id');
     }
 
-    public function University()
+    public function university()
     {
-        return $this->belongsTo('Models\University', 'id');
+        return $this->belongsTo(University::class, 'id','university_id');
     }
 
-    public function Departments()
+    public function departments()
     {
-        return $this->hasMany('Models\Depatrment', 'faculty');
+        return $this->hasMany(Depatrment::class);
     }
 
 }

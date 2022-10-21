@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Backend\Setup;
 
+use App\Models\Address;
+use App\Models\Faculty;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\University;
 
 class FacultyController extends Controller 
 {
@@ -15,7 +18,9 @@ class FacultyController extends Controller
    */
   public function index()
   {
-    
+    $data['faculties'] = Faculty::all(); //with('university')->get();
+    $data['universities']= University::with('address')->get();
+    return view('backend.setup.faculty.index',$data);
   }
 
   /**
@@ -23,9 +28,12 @@ class FacultyController extends Controller
    *
    * @return Response
    */
-  public function create()
+  public function add()
   {
-    
+    $data['faculty'] = Faculty::all(); //with('address')->get();
+    $data['universities']= University::with('address')->get();
+    $data['addresses'] = Address::get();     //Address::get(["name", "id"]);
+    return view('backend.setup.faculty.new', $data);
   }
 
   /**
@@ -35,7 +43,21 @@ class FacultyController extends Controller
    */
   public function store(Request $request)
   {
+    $data = new Faculty();
+    $data->university_id = $request->university_id;
+    $data->name = $request->name;
+    $data->address_id = $request->address_id;
     
+
+    $data->save();
+   
+
+    $notification = array(
+      'message' => 'Faculty Inserted Successfully',
+      'alert-type' => 'success'
+    );
+
+    return redirect()->route('faculty.index')->with($notification);
   }
 
   /**
@@ -57,7 +79,11 @@ class FacultyController extends Controller
    */
   public function edit($id)
   {
-    
+    $data = Faculty::find($id);
+    $universities = University::all();
+    $addresses = Address::all();
+
+    return view('backend.setup.faculty.edit',compact('data','universities','addresses'));
   }
 
   /**
@@ -66,9 +92,33 @@ class FacultyController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update(Request $request,$id)
   {
-    
+    $validateData = $request->validate([
+      'name' => 'required'
+  //     'email' => 'required|unique:users'
+     
+  ]);
+ // dd($request);
+  $data = Faculty::find($id);
+
+  
+  $data->university_id = $request->university_id;
+  $data->name = $request->name;
+  $data->address_id = $request->address_id;
+  
+  
+  $data->save();
+
+  $notification = array(
+      'message' => 'Faculty Updated Successfully',
+      'alert-type' => 'info'
+  );
+
+  
+  
+
+  return redirect()->route('faculty.index')->with($notification);
   }
 
   /**
@@ -79,7 +129,15 @@ class FacultyController extends Controller
    */
   public function destroy($id)
   {
-    
+    $data = Faculty::find($id);
+      $data->delete();
+
+      $notification = array(
+          'message' => 'Faculty Deleted Successfully',
+          'alert-type' => 'info'
+      );
+
+      return redirect()->route('faculty.index')->with($notification);
   }
   
 }

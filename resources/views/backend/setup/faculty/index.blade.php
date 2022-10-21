@@ -13,8 +13,8 @@
 
            <div class="box">
               <div class="box-header with-border">
-                <h3 class="box-title">University List</h3>
-                <a href="{{ route('university.add') }}" class="btn btn-rounded btn-success mb-5" style="float: right">+ Add University</a>
+                <h3 class="box-title">Faculty List</h3>
+                <a href="{{ route('faculty.add') }}" class="btn btn-rounded btn-success mb-5" style="float: right">+ Add Faculty</a>
               </div>
               <!-- /.box-header -->
               <div class="box-body">
@@ -24,6 +24,7 @@
                           <tr>
                               <th width="5%">No</th>
                               <th>Name</th>
+                              <th>University</th>
                               <th>Country</th>
                               <th>State</th>
                               <th>City</th>
@@ -32,17 +33,18 @@
                           </tr>
                       </thead>
                       <tbody>
-                        @foreach ($universities as $key => $university)     
+                        @foreach ($faculties as $key => $faculty)     
                         <tr>
                           <td>{{ ++$key }}</td>
-                          <td>{{ $university->name }}</td>
-                          <td>{{ $university->address->country->name }}</td>
-                          <td>{{ $university->address->state->name }}</td>
-                          <td>{{ $university->address->city->name }}</td>
+                          <td>{{ $faculty->name }}</td>
+                          <th>{{ $faculty->university_id }}</th>
+                          <td>{{ $faculty->address->country->name }}</td>
+                          <td>{{ $faculty->address->state->name }}</td>
+                          <td>{{ $faculty->address->city->name }}</td>
                           
                           <td>
-                              <a href="{{ route('university.edit', $university->id) }}" class="btn btn-rounded btn-info mb-5">Edit</a>
-                              <a href="{{ route('university.delete', $university->id) }}" class="btn btn-rounded btn-danger mb-5" id="delete">Delete</a>
+                              <a href="{{ route('faculty.edit', $faculty->id) }}" class="btn btn-rounded btn-info mb-5">Edit</a>
+                              <a href="{{ route('faculty.delete', $faculty->id) }}" class="btn btn-rounded btn-danger mb-5" id="delete">Delete</a>
                           </td>
                         </tr>
                         @endforeach

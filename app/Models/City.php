@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\State;
+use App\Models\Address;
+use App\Models\Country;
 use Illuminate\Database\Eloquent\Model;
 use Znck\Eloquent\Traits\BelongsToThrough;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,12 +27,12 @@ class City extends Model
     ];
 
     public function state(){
-        return $this->belongsTo(State::class, 'id');
+        return $this->belongsTo(State::class, 'id','state_id');
    }
 
     public function address()
     {
-        return $this->hasMany('Models\Address', 'id');
+        return $this->hasMany(Address::class);
     }
     public function country()
     {

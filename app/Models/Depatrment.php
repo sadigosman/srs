@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Major;
+use App\Models\Address;
+use App\Models\Faculty;
 use Illuminate\Database\Eloquent\Model;
 
 class Depatrment extends Model 
@@ -10,19 +13,19 @@ class Depatrment extends Model
     protected $table = 'departements';
     public $timestamps = true;
 
-    public function Faculty()
+    public function faculty()
     {
-        return $this->belongsTo('Models\Faculty', 'id');
+        return $this->belongsTo(Faculty::class, 'id','faculty_id');
     }
 
-    public function Address()
+    public function address()
     {
-        return $this->hasOne('Models\Address', 'id');
+        return $this->hasOne(Address::class, 'id','address_id');
     }
 
-    public function Major()
+    public function major()
     {
-        return $this->hasMany('Models\Major', 'department');
+        return $this->hasMany(Major::class);
     }
 
 }

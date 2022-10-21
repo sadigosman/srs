@@ -18,6 +18,7 @@ class UniversityController extends Controller
   public function index()
   {
     $data['universities'] = University::with('address')->get();
+    //dd($data);
     // $data['countries'] = Country::with('cities')->get();
     // $data['states'] = State::get(["name", "id"]);
     // $data['cities'] = City::with('country')->get();
@@ -81,7 +82,10 @@ class UniversityController extends Controller
    */
   public function edit($id)
   {
-    
+    $data = University::find($id);
+    $addresses = Address::all();
+
+    return view('backend.setup.university.edit',compact('data','addresses'));
   }
 
   /**
@@ -90,9 +94,35 @@ class UniversityController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update(Request $request,$id)
   {
     
+ 
+    $validateData = $request->validate([
+      'name' => 'required'
+  //     'email' => 'required|unique:users'
+     
+  ]);
+ // dd($request);
+  $data = University::find($id);
+
+  
+
+  $data->name = $request->name;
+  $data->address_id = $request->address_id;
+  
+  
+  $data->save();
+
+  $notification = array(
+      'message' => 'University Updated Successfully',
+      'alert-type' => 'info'
+  );
+
+  
+  
+
+  return redirect()->route('university.index')->with($notification);
   }
 
   /**
@@ -103,7 +133,15 @@ class UniversityController extends Controller
    */
   public function destroy($id)
   {
-    
+    $data = University::find($id);
+      $data->delete();
+
+      $notification = array(
+          'message' => 'University Deleted Successfully',
+          'alert-type' => 'info'
+      );
+
+      return redirect()->route('university.index')->with($notification);
   }
   
 }

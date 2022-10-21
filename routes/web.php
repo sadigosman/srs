@@ -8,6 +8,8 @@ use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\Setup\CityController;
 use App\Http\Controllers\Backend\Setup\StateController;
 use App\Http\Controllers\Backend\Setup\AddressController;
+use App\Http\Controllers\Backend\Setup\FacultyController;
+use App\Http\Controllers\Backend\Setup\DepatrmentController;
 use App\Http\Controllers\Backend\Setup\UniversityController;
 
 
@@ -78,7 +80,7 @@ Route::prefix('setup')->group(function(){
     Route::post('address/store',[AddressController::class,'store'])->name('address.store');
     Route::get('address/edit/{id}',[AddressController::class,'edit'])->name('address.edit');
     Route::post('address/update/{id}',[AddressController::class,'update'])->name('address.update');
-    Route::get('address/delete/{id}',[AddressController::class,'delete'])->name('address.delete');
+    Route::get('address/delete/{id}',[AddressController::class,'destroy'])->name('address.delete');
 
     // University Controller
     
@@ -87,7 +89,26 @@ Route::prefix('setup')->group(function(){
     Route::post('university/store',[UniversityController::class,'store'])->name('university.store');
     Route::get('university/edit/{id}',[UniversityController::class,'edit'])->name('university.edit');
     Route::post('university/update/{id}',[UniversityController::class,'update'])->name('university.update');
-    Route::get('university/delete/{id}',[UniversityController::class,'delete'])->name('university.delete');
+    Route::get('university/delete/{id}',[UniversityController::class,'destroy'])->name('university.delete');
+
+
+    // Faculty Controller
+    
+    Route::get('faculty/view',[FacultyController::class,'index'])->name('faculty.index');
+    Route::get('faculty/new',[FacultyController::class,'add'])->name('faculty.add');
+    Route::post('faculty/store',[FacultyController::class,'store'])->name('faculty.store');
+    Route::get('faculty/edit/{id}',[FacultyController::class,'edit'])->name('faculty.edit');
+    Route::post('faculty/update/{id}',[FacultyController::class,'update'])->name('faculty.update');
+    Route::get('faculty/delete/{id}',[FacultyController::class,'destroy'])->name('faculty.delete');
+
+    // Department Controller
+    
+    Route::get('department/view',[DepatrmentController::class,'index'])->name('department.index');
+    Route::get('department/new',[DepatrmentController::class,'add'])->name('department.add');
+    Route::post('department/store',[DepatrmentController::class,'store'])->name('department.store');
+    Route::get('department/edit/{id}',[DepatrmentController::class,'edit'])->name('department.edit');
+    Route::post('department/update/{id}',[DepatrmentController::class,'update'])->name('department.update');
+    Route::get('department/delete/{id}',[DepatrmentController::class,'destroy'])->name('department.delete');
 
 });
 

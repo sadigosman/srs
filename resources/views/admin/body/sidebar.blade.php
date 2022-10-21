@@ -73,6 +73,9 @@
           <ul class="treeview-menu">
             <li><a href="{{ route('address.index') }}"><i class="ti-more"></i>Address</a></li>
             <li><a href="{{ route('university.index') }}"><i class="ti-more"></i>University</a></li>
+            <li><a href="{{ route('faculty.index') }}"><i class="ti-more"></i>Faculty</a></li>
+            <li><a href="{{ route('department.index') }}"><i class="ti-more"></i>Department</a></li>
+            {{-- <li><a href="{{ route('major.index') }}"><i class="ti-more"></i>Major</a></li> --}}
             
           </ul>
         </li>

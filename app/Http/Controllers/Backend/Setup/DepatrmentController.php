@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Backend\Setup;
 
+use App\Models\Address;
+use App\Models\Faculty;
+use App\Models\Depatrment;
+use App\Models\University;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +19,10 @@ class DepatrmentController extends Controller
    */
   public function index()
   {
-    
+    $data['departments']= Depatrment::all(); //with('faculty')->get('id','name');
+    $data['faculties'] = Faculty::all(); //with('university')->get();
+    $data['universities']= University::with('address')->get();
+    return view('backend.setup.department.index',$data);
   }
 
   /**
@@ -23,9 +30,13 @@ class DepatrmentController extends Controller
    *
    * @return Response
    */
-  public function create()
+  public function add()
   {
-    
+    $data['departments']= Depatrment::all();
+    $data['faculties'] = Faculty::all(); //with('address')->get();
+    $data['universities']= University::with('address')->get();
+    $data['addresses'] = Address::get();     //Address::get(["name", "id"]);
+    return view('backend.setup.department.new', $data);
   }
 
   /**
@@ -35,7 +46,21 @@ class DepatrmentController extends Controller
    */
   public function store(Request $request)
   {
+    $data = new Depatrment();
+    $data->faculty_id = $request->faculty_id;
+    $data->name = $request->name;
+    $data->address_id = $request->address_id;
     
+
+    $data->save();
+   
+
+    $notification = array(
+      'message' => 'Department Inserted Successfully',
+      'alert-type' => 'success'
+    );
+
+    return redirect()->route('department.index')->with($notification);
   }
 
   /**
@@ -57,7 +82,11 @@ class DepatrmentController extends Controller
    */
   public function edit($id)
   {
-    
+    $data = Depatrment::find($id);
+    $faculties = Faculty::all();
+    $addresses = Address::all();
+
+    return view('backend.setup.department.edit',compact('data','faculties','addresses'));
   }
 
   /**
@@ -66,9 +95,31 @@ class DepatrmentController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update(Request $request ,$id)
   {
-    
+    $validateData = $request->validate([
+      'name' => 'required'
+  //     'email' => 'required|unique:users'
+     
+  ]);
+ // dd($request);
+  $data = Depatrment::find($id);
+
+  
+  $data->faculty_id = $request->faculty_id;
+  $data->name = $request->name;
+  $data->address_id = $request->address_id;
+  
+  
+  $data->save();
+
+  $notification = array(
+      'message' => 'Depatrment Updated Successfully',
+      'alert-type' => 'info'
+    );
+
+  
+  return redirect()->route('department.index')->with($notification);
   }
 
   /**
@@ -79,7 +130,15 @@ class DepatrmentController extends Controller
    */
   public function destroy($id)
   {
-    
+    $data = Depatrment::find($id);
+      $data->delete();
+
+      $notification = array(
+          'message' => 'Department Deleted Successfully',
+          'alert-type' => 'info'
+      );
+
+      return redirect()->route('department.index')->with($notification);
   }
   
 }

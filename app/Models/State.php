@@ -3,6 +3,9 @@
 namespace App\Models;
 
 
+use App\Models\City;
+use App\Models\Address;
+use App\Models\Country;
 use Illuminate\Database\Eloquent\Model;
 
 class State extends Model 
@@ -16,17 +19,17 @@ class State extends Model
 
     public function country()
     {
-        return $this->belongsTo(Country::class,'id');
+        return $this->belongsTo(Country::class,'id','country_id');
     }
 
     
     public function cities(){
-        return $this->hasMany(City::class,'id');
+        return $this->hasMany(City::class);
    }
 
     public function Address()
     {
-        return $this->hasMany(Address::class, 'id');
+        return $this->hasMany(Address::class);
     }
 
 }

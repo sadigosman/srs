@@ -122,7 +122,15 @@ class AddressController extends Controller
    */
   public function destroy($id)
   {
-    
+    $data = Address::find($id);
+      $data->delete();
+
+      $notification = array(
+          'message' => 'Address Deleted Successfully',
+          'alert-type' => 'info'
+      );
+
+      return redirect()->route('address.index')->with($notification);
   }
 
   

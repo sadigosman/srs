@@ -12,12 +12,12 @@ class Province extends Model
 
     public function State()
     {
-        return $this->belongsTo('Models\State', 'id');
+        return $this->belongsTo(State::class);
     }
 
     public function Address()
     {
-        return $this->hasMany('Models\Address', 'province');
+        return $this->hasMany(Address::class);
     }
 
 }

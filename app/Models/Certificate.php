@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Applicant;
 use Illuminate\Database\Eloquent\Model;
 
 class Certificate extends Model 
@@ -12,7 +13,7 @@ class Certificate extends Model
 
     public function Applicant()
     {
-        return $this->belongsTo('Models\Applicant');
+        return $this->belongsTo(Applicant::class,'id','app_id');
     }
 
 }

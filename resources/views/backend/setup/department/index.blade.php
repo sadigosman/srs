@@ -13,8 +13,8 @@
 
            <div class="box">
               <div class="box-header with-border">
-                <h3 class="box-title">University List</h3>
-                <a href="{{ route('university.add') }}" class="btn btn-rounded btn-success mb-5" style="float: right">+ Add University</a>
+                <h3 class="box-title">Department List</h3>
+                <a href="{{ route('department.add') }}" class="btn btn-rounded btn-success mb-5" style="float: right">+ Add Department</a>
               </div>
               <!-- /.box-header -->
               <div class="box-body">
@@ -23,6 +23,8 @@
                       <thead>
                           <tr>
                               <th width="5%">No</th>
+                              {{-- <th>University</th> --}}
+                              <th>Faculty</th>
                               <th>Name</th>
                               <th>Country</th>
                               <th>State</th>
@@ -32,17 +34,19 @@
                           </tr>
                       </thead>
                       <tbody>
-                        @foreach ($universities as $key => $university)     
+                        @foreach ($departments as $key => $department)     
                         <tr>
                           <td>{{ ++$key }}</td>
-                          <td>{{ $university->name }}</td>
-                          <td>{{ $university->address->country->name }}</td>
-                          <td>{{ $university->address->state->name }}</td>
-                          <td>{{ $university->address->city->name }}</td>
+                          {{-- <th>{{ $department->faculty->university_id }}</th> --}}
+                          <th>{{ $department->faculty_id }}</th>
+                          <td>{{ $department->name }}</td>
+                          <td>{{ $department->address->country->name }}</td>
+                          <td>{{ $department->address->state->name }}</td>
+                          <td>{{ $department->address->city->name }}</td>
                           
                           <td>
-                              <a href="{{ route('university.edit', $university->id) }}" class="btn btn-rounded btn-info mb-5">Edit</a>
-                              <a href="{{ route('university.delete', $university->id) }}" class="btn btn-rounded btn-danger mb-5" id="delete">Delete</a>
+                              <a href="{{ route('department.edit', $department->id) }}" class="btn btn-rounded btn-info mb-5">Edit</a>
+                              <a href="{{ route('department.delete', $department->id) }}" class="btn btn-rounded btn-danger mb-5" id="delete">Delete</a>
                           </td>
                         </tr>
                         @endforeach
