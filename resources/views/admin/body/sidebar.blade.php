@@ -1,3 +1,10 @@
+@php
+  $prefix = Request::route()->getPrefix();
+  $route = Route::current()->getName();   
+@endphp
+
+
+
 <aside class="main-sidebar">
     <!-- sidebar-->
     <section class="sidebar">	
@@ -23,8 +30,9 @@
 			<span>Dashboard</span>
           </a>
         </li>  
-		
-        <li class="treeview">
+        
+        {{-- Manage User --}}
+        <li class="treeview {{ ($prefix == '/users')?'active':'' }}">
           <a href="#">
             <i data-feather="message-circle"></i>
             <span>Manage User</span>
@@ -33,22 +41,39 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ route('user.view') }}"><i class="ti-more"></i>View User</a></li>
+            <li><a href="{{ route('user.index') }}"><i class="ti-more"></i>View User</a></li>
             <li><a href="{{ route('user.add') }}"><i class="ti-more"></i>Add User</a></li>
           </ul>
         </li> 
-		  
-        <li class="treeview">
+        
+        
+        {{-- User Profile --}}
+        <li class="treeview {{ ($prefix == '/profile')?'active':'' }}">
           <a href="#">
-            <i data-feather="mail"></i> <span>Mailbox</span>
+            <i data-feather="mail"></i> <span>Manage Profile</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-right pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="mailbox_inbox.html"><i class="ti-more"></i>Inbox</a></li>
-            <li><a href="mailbox_compose.html"><i class="ti-more"></i>Compose</a></li>
-            <li><a href="mailbox_read_mail.html"><i class="ti-more"></i>Read</a></li>
+            <li><a href="{{ route('profile.index') }}"><i class="ti-more"></i>Your Profile</a></li>
+            <li><a href="mailbox_compose.html"><i class="ti-more"></i>Change Password</a></li>
+            
+          </ul>
+        </li>
+        
+        {{-- Setup --}}
+        <li class="treeview {{ ($prefix == '/setup')?'active':'' }}">
+          <a href="#">
+            <i data-feather="mail"></i> <span>User Profile</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ route('address.index') }}"><i class="ti-more"></i>Address</a></li>
+            <li><a href="{{ route('university.index') }}"><i class="ti-more"></i>University</a></li>
+            
           </ul>
         </li>
 		

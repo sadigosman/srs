@@ -1,3 +1,4 @@
+create_foreign_kesy
 <?php
 
 use Illuminate\Support\Facades\Schema;
@@ -10,77 +11,71 @@ class CreateForeignKeys extends Migration {
 	public function up()
 	{
 		Schema::table('applicants', function(Blueprint $table) {
-			$table->foreign('address_id')->references('id')->on('addresses')
+			$table->foreign('address')->references('id')->on('addresses')
 						->onDelete('restrict')
 						->onUpdate('restrict');
 		});
 		Schema::table('applicants', function(Blueprint $table) {
-			$table->foreign('app_type_id')->references('id')->on('app_types')
+			$table->foreign('type')->references('id')->on('app_types')
 						->onDelete('restrict')
 						->onUpdate('restrict');
 		});
-		Schema::table('states', function(Blueprint $table) {
-			$table->foreign('country_id')->references('id')->on('countries')
-						->onDelete('restrict')
-						->onUpdate('restrict');
-		});
-		Schema::table('cities', function(Blueprint $table) {
-			$table->foreign('state_id')->references('id')->on('states')
-						->onDelete('restrict')
-						->onUpdate('restrict');
-		});
+		
+		
 		Schema::table('addresses', function(Blueprint $table) {
 			$table->foreign('country_id')->references('id')->on('countries')
 						->onDelete('restrict')
 						->onUpdate('restrict');
 		});
 		Schema::table('addresses', function(Blueprint $table) {
-			$table->foreign('state_id')->references('id')->on('states')
+			$table->foreign('state')->references('id')->on('states')
 						->onDelete('restrict')
 						->onUpdate('restrict');
 		});
+
 		Schema::table('addresses', function(Blueprint $table) {
-			$table->foreign('city_id')->references('id')->on('cities')
+			$table->foreign('city')->references('id')->on('cities')
 						->onDelete('restrict')
 						->onUpdate('restrict');
 		});
+		
 		Schema::table('universities', function(Blueprint $table) {
-			$table->foreign('address_id')->references('id')->on('addresses')
+			$table->foreign('address')->references('id')->on('addresses')
 						->onDelete('restrict')
 						->onUpdate('restrict');
 		});
 		Schema::table('faculties', function(Blueprint $table) {
-			$table->foreign('university_id')->references('id')->on('universities')
+			$table->foreign('university')->references('id')->on('universities')
 						->onDelete('restrict')
 						->onUpdate('restrict');
 		});
 		Schema::table('faculties', function(Blueprint $table) {
-			$table->foreign('address_id')->references('id')->on('addresses')
+			$table->foreign('address')->references('id')->on('addresses')
 						->onDelete('restrict')
 						->onUpdate('restrict');
 		});
 		Schema::table('departements', function(Blueprint $table) {
-			$table->foreign('faculty_id')->references('id')->on('faculties')
+			$table->foreign('faculty')->references('id')->on('faculties')
 						->onDelete('restrict')
 						->onUpdate('restrict');
 		});
 		Schema::table('departements', function(Blueprint $table) {
-			$table->foreign('address_id')->references('id')->on('addresses')
+			$table->foreign('address')->references('id')->on('addresses')
 						->onDelete('restrict')
 						->onUpdate('restrict');
 		});
 		Schema::table('majors', function(Blueprint $table) {
-			$table->foreign('address_id')->references('id')->on('addresses')
+			$table->foreign('address')->references('id')->on('addresses')
 						->onDelete('restrict')
 						->onUpdate('restrict');
 		});
 		Schema::table('majors', function(Blueprint $table) {
-			$table->foreign('department_id')->references('id')->on('departements')
+			$table->foreign('department')->references('id')->on('departements')
 						->onDelete('restrict')
 						->onUpdate('restrict');
 		});
 		Schema::table('certificates', function(Blueprint $table) {
-			$table->foreign('major_id')->references('id')->on('majors')
+			$table->foreign('major')->references('id')->on('majors')
 						->onDelete('restrict')
 						->onUpdate('restrict');
 		});
@@ -89,54 +84,60 @@ class CreateForeignKeys extends Migration {
 						->onDelete('cascade')
 						->onUpdate('cascade');
 		});
+
+		Schema::table('states', function(Blueprint $table) {
+			$table->foreign('country')->references('id')->on('countries')
+						->onDelete('restrict')
+						->onUpdate('restrict');
+		});
 	}
 
 	public function down()
 	{
 		Schema::table('applicants', function(Blueprint $table) {
-			$table->dropForeign('applicants_address_id_foreign');
+			$table->dropForeign('applicants_address_foreign');
 		});
 		Schema::table('applicants', function(Blueprint $table) {
-			$table->dropForeign('applicants_app_type_id_foreign');
+			$table->dropForeign('applicants_type_foreign');
 		});
 		Schema::table('states', function(Blueprint $table) {
-			$table->dropForeign('states_country_id_foreign');
+			$table->dropForeign('states_country_foreign');
 		});
-		Schema::table('cities', function(Blueprint $table) {
-			$table->dropForeign('cities_state_id_foreign');
-		});
-		Schema::table('addresses', function(Blueprint $table) {
-			$table->dropForeign('addresses_country_id_foreign');
+		Schema::table('provinces', function(Blueprint $table) {
+			$table->dropForeign('provinces_state_foreign');
 		});
 		Schema::table('addresses', function(Blueprint $table) {
-			$table->dropForeign('addresses_state_id_foreign');
+			$table->dropForeign('addresses_country_foreign');
 		});
 		Schema::table('addresses', function(Blueprint $table) {
-			$table->dropForeign('addresses_city_id_foreign');
+			$table->dropForeign('addresses_state_foreign');
+		});
+		Schema::table('addresses', function(Blueprint $table) {
+			$table->dropForeign('addresses_province_foreign');
 		});
 		Schema::table('universities', function(Blueprint $table) {
-			$table->dropForeign('universities_address_id_foreign');
+			$table->dropForeign('universities_address_foreign');
 		});
 		Schema::table('faculties', function(Blueprint $table) {
-			$table->dropForeign('faculties_university_id_foreign');
+			$table->dropForeign('faculties_university_foreign');
 		});
 		Schema::table('faculties', function(Blueprint $table) {
-			$table->dropForeign('faculties_address_id_foreign');
+			$table->dropForeign('faculties_address_foreign');
 		});
 		Schema::table('departements', function(Blueprint $table) {
-			$table->dropForeign('departements_faculty_id_foreign');
+			$table->dropForeign('departements_faculty_foreign');
 		});
 		Schema::table('departements', function(Blueprint $table) {
-			$table->dropForeign('departements_address_id_foreign');
+			$table->dropForeign('departements_address_foreign');
 		});
 		Schema::table('majors', function(Blueprint $table) {
-			$table->dropForeign('majors_address_id_foreign');
+			$table->dropForeign('majors_address_foreign');
 		});
 		Schema::table('majors', function(Blueprint $table) {
-			$table->dropForeign('majors_department_id_foreign');
+			$table->dropForeign('majors_department_foreign');
 		});
 		Schema::table('certificates', function(Blueprint $table) {
-			$table->dropForeign('certificates_major_id_foreign');
+			$table->dropForeign('certificates_major_foreign');
 		});
 		Schema::table('certificates', function(Blueprint $table) {
 			$table->dropForeign('certificates_app_id_foreign');

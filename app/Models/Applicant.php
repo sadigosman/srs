@@ -2,6 +2,7 @@
 
 namespace Models;
 
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -15,19 +16,20 @@ class Applicant extends Model
 
     protected $dates = ['deleted_at'];
 
-    public function ApplicantType()
+    public function applicantType()
     {
         return $this->hasOne('Models\AppType', 'id');
     }
 
-    public function Address()
+    public function address()
     {
-        return $this->hasOne('Models\Address', 'id');
+        return $this->hasOne('Models\Address');
     }
 
-    public function Certificate()
+    public function certificate()
     {
         return $this->hasMany('Models\Certificate');
     }
+    
 
 }

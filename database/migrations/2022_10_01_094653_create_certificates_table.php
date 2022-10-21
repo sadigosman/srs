@@ -1,19 +1,20 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateCertificatesTable extends Migration {
 
 	public function up()
 	{
 		Schema::create('certificates', function(Blueprint $table) {
-			$table->increments('id');
+			$table->id();
 			$table->timestamps();
 			$table->string('cert_no', 20);
-			$table->integer('major')->unsigned();
+			$table->bigInteger('major_id')->unsigned();
 			$table->date('issue_date');
-			$table->integer('app_id')->unsigned();
+			$table->bigInteger('app_id')->unsigned();
 		});
 	}
 

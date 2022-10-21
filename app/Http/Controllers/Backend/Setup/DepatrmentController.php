@@ -1,10 +1,11 @@
 <?php 
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend\Setup;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class AddressController extends Controller 
+class DepatrmentController extends Controller 
 {
 
   /**

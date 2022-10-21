@@ -1,6 +1,7 @@
 <?php
 
-namespace Models;
+namespace App\Models;
+
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,21 +9,24 @@ class State extends Model
 {
 
     protected $table = 'states';
-    public $timestamps = true;
+    public $timestamps = false;
+    protected $fillable = [
+        'name', 'country_id', 'name_ar','code'
+    ];
 
-    public function Country()
+    public function country()
     {
-        return $this->belongsTo('Models\Country', 'id');
+        return $this->belongsTo(Country::class,'id');
     }
 
-    public function Provinces()
-    {
-        return $this->hasMany('Models\Province', 'id');
-    }
+    
+    public function cities(){
+        return $this->hasMany(City::class,'id');
+   }
 
     public function Address()
     {
-        return $this->hasMany('Models\Address', 'state');
+        return $this->hasMany(Address::class, 'id');
     }
 
 }

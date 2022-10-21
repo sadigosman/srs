@@ -1,14 +1,15 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateApplicantsTable extends Migration {
 
 	public function up()
 	{
 		Schema::create('applicants', function(Blueprint $table) {
-			$table->increments('id');
+			$table->id();
 			$table->timestamps();
 			$table->softDeletes();
 			$table->string('fname', 30);
@@ -20,11 +21,13 @@ class CreateApplicantsTable extends Migration {
 			$table->string('nic', 30);
 			$table->date('nic_issue_date');
 			$table->string('nic_issue_place', 30);
-			$table->integer('address')->unsigned();
+			$table->bigInteger('address_id')->unsigned();
 			$table->string('mobile', 15);
 			$table->string('email', 20);
-			$table->integer('type')->unsigned();
+			$table->bigInteger('app_type_id')->unsigned();
 			$table->enum('sex', array('Male', 'Female'));
+			
+
 		});
 	}
 

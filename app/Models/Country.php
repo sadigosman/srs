@@ -1,23 +1,34 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model 
 {
 
-    protected $table = 'Countries';
-    public $timestamps = true;
+    protected $table = 'countries';
+    public $timestamps = false;
+    protected $fillable = [
+        'name', 'code', 'name_ar'
+    ];
 
-    public function States()
+    public function states()
     {
-        return $this->hasMany('Models\State', 'id');
+        return $this->hasMany(State::class,'id');
     }
 
-    public function Address()
+    public function cities()
     {
-        return $this->hasMany('Models\Address', 'country');
+        return $this->hasManyThrough(City::class, through:State::class);
     }
+
+    public function address()
+    {
+        return $this->hasMany(Address::class);
+    }
+
+   
+   
 
 }

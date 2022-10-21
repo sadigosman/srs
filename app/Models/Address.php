@@ -1,6 +1,6 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,39 +10,39 @@ class Address extends Model
     protected $table = 'addresses';
     public $timestamps = true;
 
-    public function Country()
+    public function country()
     {
-        return $this->belongsTo('Models\Country', 'id');
+        return $this->belongsTo(Country::class);
     }
 
-    public function State()
+    public function state()
     {
-        return $this->belongsTo('Models\State', 'id');
+        return $this->belongsTo(State::class);
     }
 
-    public function Province()
+    public function city()
     {
-        return $this->belongsTo('Models\Province', 'id');
+        return $this->belongsTo(City::class);
     }
 
-    public function Applicant()
+    public function applicant()
     {
-        return $this->belongsToMany('Models\Applicant', 'address');
+        return $this->belongsToMany('Models\Applicant', 'id');
     }
 
-    public function University()
+    public function university()
     {
-        return $this->belongsToMany('Models\University', 'address');
+        return $this->belongsToMany('Models\University', 'id');
     }
 
-    public function Faculty()
+    public function faculty()
     {
-        return $this->belongsToMany('Models\Faculty', 'address');
+        return $this->belongsToMany('Models\Faculty', 'id');
     }
 
-    public function Departments()
+    public function departments()
     {
-        return $this->belongsToMany('Models\Depatrment', 'address');
+        return $this->belongsToMany('Models\Depatrment', 'id');
     }
 
 }
