@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Backend\Setup;
 
+use App\Models\University;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 
 class UniversityController extends Controller 
 {
@@ -15,7 +17,14 @@ class UniversityController extends Controller
    */
   public function index()
   {
-    
+    $data['universities'] = University::with('address')->get();
+    // $data['countries'] = Country::with('cities')->get();
+    // $data['states'] = State::get(["name", "id"]);
+    // $data['cities'] = City::with('country')->get();
+
+
+
+    return view('backend.setup.university.index',$data);
   }
 
   /**
@@ -23,9 +32,11 @@ class UniversityController extends Controller
    *
    * @return Response
    */
-  public function create()
+  public function add()
   {
-    
+    $data['universities'] = University::all(); //with('address')->get();
+    $data['addresses'] = Address::get();     //Address::get(["name", "id"]);
+    return view('backend.setup.university.new', $data);
   }
 
   /**
@@ -35,7 +46,20 @@ class UniversityController extends Controller
    */
   public function store(Request $request)
   {
+    $data = new University();
+    $data->name = $request->name;
+    $data->address_id = $request->address_id;
     
+
+    $data->save();
+   
+
+    $notification = array(
+      'message' => 'University Inserted Successfully',
+      'alert-type' => 'success'
+    );
+
+    return redirect()->route('university.index')->with($notification);
   }
 
   /**

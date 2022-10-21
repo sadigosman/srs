@@ -2,6 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\City;
+use App\Models\State;
+use App\Models\Country;
+use App\Models\Faculty;
+use App\Models\Applicant;
+use App\Models\Depatrment;
+use App\Models\University;
 use Illuminate\Database\Eloquent\Model;
 
 class Address extends Model 
@@ -27,22 +34,22 @@ class Address extends Model
 
     public function applicant()
     {
-        return $this->belongsToMany('Models\Applicant', 'id');
+        return $this->belongsToMany(Applicant::class);
     }
 
     public function university()
     {
-        return $this->belongsToMany('Models\University', 'id');
+        return $this->belongsToMany(University::class);
     }
 
     public function faculty()
     {
-        return $this->belongsToMany('Models\Faculty', 'id');
+        return $this->belongsToMany(Faculty::class);
     }
 
     public function departments()
     {
-        return $this->belongsToMany('Models\Depatrment', 'id');
+        return $this->belongsToMany(Depatrment::class);
     }
 
 }

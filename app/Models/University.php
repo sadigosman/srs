@@ -1,6 +1,6 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,12 +17,12 @@ class University extends Model
 
     public function Faculty()
     {
-        return $this->hasMany('Models\Faculty');
+        return $this->hasMany(Faculty::class);
     }
 
     public function Address()
     {
-        return $this->hasOne('Models\Address', 'id');
+        return $this->hasOne('App\Models\Address','id');
     }
 
 }

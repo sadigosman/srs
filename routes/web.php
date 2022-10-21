@@ -8,7 +8,7 @@ use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\Setup\CityController;
 use App\Http\Controllers\Backend\Setup\StateController;
 use App\Http\Controllers\Backend\Setup\AddressController;
-
+use App\Http\Controllers\Backend\Setup\UniversityController;
 
 
 /*
@@ -83,11 +83,11 @@ Route::prefix('setup')->group(function(){
     // University Controller
     
     Route::get('university/view',[UniversityController::class,'index'])->name('university.index');
-    // Route::get('university/new',[UniversityController::class,'Create'])->name('university.add');
-    // Route::post('university/store',[UniversityController::class,'Store'])->name('university.store');
-    // Route::get('university/edit/{id}',[UniversityController::class,'Edit'])->name('university.edit');
-    // Route::post('university/update/{id}',[UniversityController::class,'Update'])->name('university.update');
-    // Route::get('university/delete/{id}',[UniversityController::class,'Delete'])->name('university.delete');
+    Route::get('university/new',[UniversityController::class,'add'])->name('university.add');
+    Route::post('university/store',[UniversityController::class,'store'])->name('university.store');
+    Route::get('university/edit/{id}',[UniversityController::class,'edit'])->name('university.edit');
+    Route::post('university/update/{id}',[UniversityController::class,'update'])->name('university.update');
+    Route::get('university/delete/{id}',[UniversityController::class,'delete'])->name('university.delete');
 
 });
 
